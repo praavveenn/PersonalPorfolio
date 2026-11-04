@@ -10,7 +10,7 @@ export function Home() {
   // The sections render after page load, so a link like /#projects needs its scroll applied here.
   useEffect(() => {
     const target = window.location.hash.slice(1);
-    if (target) document.getElementById(target)?.scrollIntoView();
+    if (target) document.getElementById(target)?.scrollIntoView({ behavior: 'instant' });
   }, []);
 
   return (

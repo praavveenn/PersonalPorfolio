@@ -12,6 +12,8 @@ interface PageTransitionProps {
 
 export function PageTransition({ title, children }: PageTransitionProps) {
   const reducedMotion = usePrefersReducedMotion();
+  // A link to a section scrolls on mount, which needs the page already in its final position.
+  const skipEntrance = reducedMotion || window.location.hash !== '';
 
   useEffect(() => {
     document.title = `${title} | ${portfolio.name}`;
@@ -19,7 +21,7 @@ export function PageTransition({ title, children }: PageTransitionProps) {
 
   return (
     <motion.div
-      initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+      initial={skipEntrance ? false : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.4, ease } }}
       exit={
         reducedMotion
