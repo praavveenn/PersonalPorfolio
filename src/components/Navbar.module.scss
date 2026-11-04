@@ -1,0 +1,178 @@
+@use '../styles/mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
+}
+
+.scrolled {
+  border-bottom-color: var(--border);
+  background-color: var(--bg-translucent);
+  backdrop-filter: blur(14px);
+}
+
+.menuOpen {
+  border-bottom-color: var(--border);
+  background-color: var(--bg);
+  backdrop-filter: none;
+}
+
+.bar {
+  @include flex-between(1rem);
+  position: relative;
+  height: var(--nav-height);
+}
+
+.brand {
+  @include flex(row, baseline, flex-start, 0.125rem);
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.brandDot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: var(--gradient);
+}
+
+.actions {
+  @include flex(row, center, flex-end, 0.625rem);
+}
+
+.link {
+  display: block;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+
+  &:hover,
+  &.active {
+    color: var(--text);
+  }
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3125rem;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-inline: 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+
+  span {
+    display: block;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--text);
+    transition:
+      transform var(--duration-base) var(--ease),
+      opacity var(--duration-fast) var(--ease);
+  }
+
+  &[aria-expanded='true'] {
+    span:nth-child(1) {
+      transform: translateY(0.4375rem) rotate(45deg);
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+    }
+
+    span:nth-child(3) {
+      transform: translateY(-0.4375rem) rotate(-45deg);
+    }
+  }
+}
+
+// Desktop: inline links with one sliding underline.
+@include up(lg) {
+  .nav {
+    position: relative;
+  }
+
+  .links {
+    @include flex(row, center, center, 1.75rem);
+  }
+
+  .link {
+    padding-block: 0.375rem;
+  }
+
+  .underline {
+    position: absolute;
+    bottom: -0.125rem;
+    left: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--gradient);
+    transition:
+      transform var(--duration-medium) var(--ease),
+      width var(--duration-medium) var(--ease);
+  }
+
+  .menuResume,
+  .hamburger {
+    display: none;
+  }
+}
+
+// Mobile: dropdown panel under the bar.
+@include down(lg) {
+  .barResume,
+  .underline {
+    display: none;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    padding: 0.75rem clamp(1rem, 4vw, 2rem) 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity var(--duration-base) var(--ease),
+      transform var(--duration-base) var(--ease),
+      visibility var(--duration-base);
+  }
+
+  .menuOpen .nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .link {
+    padding: 0.75rem 0.25rem;
+    font-size: 1.0625rem;
+
+    &.active {
+      color: var(--accent-text);
+    }
+  }
+
+  .menuResume {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+}

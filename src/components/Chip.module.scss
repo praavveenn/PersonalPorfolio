@@ -1,0 +1,16 @@
+@use '../styles/mixins' as *;
+
+.list {
+  @include flex(row, center, flex-start, 0.5rem, wrap);
+}
+
+.chip {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}

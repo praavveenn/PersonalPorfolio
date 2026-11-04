@@ -1,0 +1,141 @@
+@use '../styles/mixins' as *;
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(var(--drift-x), var(--drift-y)) scale(1.12);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+// Pulled up under the transparent navbar so the glow has no hard top edge.
+.hero {
+  @include flex(row, center);
+  position: relative;
+  overflow: hidden;
+  min-height: 100svh;
+  margin-top: calc(-1 * var(--nav-height));
+  padding-block: calc(var(--nav-height) + 2rem) 3rem;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  opacity: var(--glow-opacity);
+  pointer-events: none;
+  // Fades out so the glow has no hard edge where the next section starts.
+  mask-image: linear-gradient(to bottom, #000 65%, transparent);
+
+  span {
+    position: absolute;
+    border-radius: 50%;
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  span:nth-child(1) {
+    --drift-x: -8vw;
+    --drift-y: 8vh;
+    top: -20%;
+    right: -12%;
+    width: min(70vw, 46rem);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--primary), transparent 68%);
+  }
+
+  span:nth-child(2) {
+    --drift-x: 10vw;
+    --drift-y: -10vh;
+    right: 18%;
+    bottom: -28%;
+    width: min(62vw, 40rem);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--secondary), transparent 68%);
+    animation-duration: 24s;
+  }
+
+  span:nth-child(3) {
+    --drift-x: 6vw;
+    --drift-y: 8vh;
+    top: 4%;
+    left: -18%;
+    width: min(56vw, 32rem);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--cool), transparent 68%);
+    opacity: 0.45;
+    animation-duration: 30s;
+  }
+}
+
+.content {
+  position: relative;
+}
+
+.name {
+  margin-top: 1rem;
+  font-size: clamp(3.25rem, 13vw, 8rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.letter {
+  display: inline-block;
+  animation: fadeUp var(--duration-slow) var(--ease) both;
+  animation-delay: calc(var(--index) * 45ms + 100ms);
+}
+
+.fadeIn {
+  animation: fadeUp var(--duration-slow) var(--ease) 500ms both;
+}
+
+.role {
+  min-height: 1.5em;
+  margin-top: 1.25rem;
+  color: var(--accent-text);
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3.5vw, 1.875rem);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 0.125em;
+  background: currentColor;
+  vertical-align: -0.125em;
+  animation: blink 1s steps(1) infinite;
+}
+
+.intro {
+  max-width: 38rem;
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: clamp(1.0625rem, 2vw, 1.1875rem);
+}
+
+.actions {
+  @include flex(row, center, flex-start, 0.75rem, wrap);
+  margin-top: 2rem;
+}

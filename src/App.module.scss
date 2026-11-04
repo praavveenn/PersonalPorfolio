@@ -1,0 +1,14 @@
+@use './styles/mixins' as *;
+
+.app {
+  @include flex(column, stretch);
+  min-height: 100svh;
+}
+
+.main {
+  flex: 1;
+
+  &:focus {
+    outline: none;
+  }
+}

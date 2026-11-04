@@ -1,0 +1,50 @@
+@use 'sass:map';
+
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 960px,
+);
+
+// Applies at the breakpoint and wider.
+@mixin up($bp) {
+  @media (min-width: #{map.get($breakpoints, $bp)}) {
+    @content;
+  }
+}
+
+// Applies below the breakpoint.
+@mixin down($bp) {
+  @media (max-width: #{map.get($breakpoints, $bp) - 0.02px}) {
+    @content;
+  }
+}
+
+@mixin flex($direction: row, $align: center, $justify: flex-start, $gap: 0, $wrap: nowrap) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin flex-center($gap: 0) {
+  @include flex(row, center, center, $gap);
+}
+
+@mixin flex-between($gap: 0) {
+  @include flex(row, center, space-between, $gap);
+}
+
+// Hover movement only: skipped on touch devices and under reduced motion.
+@mixin hover-motion {
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

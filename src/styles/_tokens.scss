@@ -1,0 +1,90 @@
+// Midnight Ember design tokens.
+// This file emits no CSS by itself, so modules can @use it without duplicating output.
+// global.scss includes `root-tokens` once to define the custom properties.
+
+// Accents (shared by both themes)
+$primary: #ff6b35;
+$secondary: #e5397f;
+$cool: #5b8cff;
+
+// Dark theme (default)
+$dark-bg: #0a0e1a;
+$dark-surface: #121829;
+$dark-border: #1f2a44;
+$dark-text: #e8ecf4;
+$dark-muted: #8b95a9;
+
+// Light theme
+$light-bg: #f7f8fc;
+$light-surface: #ffffff;
+$light-border: #dde2ee;
+$light-text: #121829;
+$light-muted: #566076;
+
+// Readable accent for small text on light backgrounds, where #FF6B35 falls below 4.5:1.
+$light-accent-text: #c2410c;
+
+// Dark text stays readable across the whole gradient in both themes.
+$on-accent: #0a0e1a;
+
+// Fonts
+$font-heading: "'Space Grotesk', system-ui, sans-serif";
+$font-body: "Inter, system-ui, -apple-system, 'Segoe UI', sans-serif";
+$font-mono: "'JetBrains Mono', ui-monospace, Consolas, monospace";
+
+// Motion
+$ease: cubic-bezier(0.22, 1, 0.36, 1);
+$duration-fast: 200ms;
+$duration-base: 300ms;
+$duration-medium: 400ms;
+$duration-slow: 600ms;
+$stagger: 80ms;
+$reveal-distance: 24px;
+
+@mixin root-tokens {
+  :root {
+    color-scheme: dark;
+
+    --bg: #{$dark-bg};
+    --bg-translucent: rgba(10, 14, 26, 0.76);
+    --surface: #{$dark-surface};
+    --border: #{$dark-border};
+    --text: #{$dark-text};
+    --muted: #{$dark-muted};
+    --primary: #{$primary};
+    --secondary: #{$secondary};
+    --cool: #{$cool};
+    --accent-text: #{$primary};
+    --on-accent: #{$on-accent};
+    --gradient: linear-gradient(90deg, #{$primary}, #{$secondary});
+    --glow: rgba(255, 107, 53, 0.22);
+    --glow-opacity: 0.55;
+
+    --font-heading: #{$font-heading};
+    --font-body: #{$font-body};
+    --font-mono: #{$font-mono};
+
+    --ease: #{$ease};
+    --duration-fast: #{$duration-fast};
+    --duration-base: #{$duration-base};
+    --duration-medium: #{$duration-medium};
+    --duration-slow: #{$duration-slow};
+
+    --nav-height: 4.5rem;
+    --radius: 0.875rem;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+
+    --bg: #{$light-bg};
+    --bg-translucent: rgba(247, 248, 252, 0.78);
+    --surface: #{$light-surface};
+    --border: #{$light-border};
+    --text: #{$light-text};
+    --muted: #{$light-muted};
+    --accent-text: #{$light-accent-text};
+    --glow: rgba(255, 107, 53, 0.18);
+    --glow-opacity: 0.3;
+  }
+}

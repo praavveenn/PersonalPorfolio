@@ -1,0 +1,67 @@
+@use '../styles/mixins' as *;
+
+.card {
+  @include flex(column, stretch);
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition:
+    transform var(--duration-medium) var(--ease),
+    border-color var(--duration-medium) var(--ease),
+    box-shadow var(--duration-medium) var(--ease);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--primary);
+    box-shadow:
+      0 0 0 1px var(--primary),
+      0 1.25rem 2.5rem var(--glow);
+  }
+
+  @include hover-motion {
+    &:hover {
+      transform: translateY(-6px);
+
+      img {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+.media {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-bottom: 1px solid var(--border);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease);
+  }
+}
+
+.body {
+  @include flex(column, stretch, flex-start, 1rem);
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.title {
+  font-size: 1.3125rem;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.actions {
+  @include flex(row, center, flex-start, 0.625rem, wrap);
+  margin-top: auto;
+  padding-top: 0.5rem;
+}

@@ -1,0 +1,32 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Scroll reveal, driven by useInView through the Reveal component.
+.reveal,
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY($reveal-distance);
+  transition:
+    opacity $duration-slow $ease,
+    transform $duration-slow $ease;
+}
+
+.reveal.is-visible,
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+@for $i from 1 through 12 {
+  .reveal-stagger > *:nth-child(#{$i}) {
+    transition-delay: $stagger * ($i - 1);
+  }
+}
+
+@include reduced-motion {
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+}

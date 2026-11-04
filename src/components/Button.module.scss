@@ -1,0 +1,79 @@
+@use '../styles/mixins' as *;
+
+.button {
+  @include flex-center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 0.625rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.label {
+  position: relative;
+}
+
+.medium {
+  min-height: 2.875rem;
+  padding: 0.625rem 1.375rem;
+  font-size: 0.9375rem;
+}
+
+.small {
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+// Gradient sweep: the doubled gradient slides across on hover.
+.primary {
+  background-image: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary),
+    var(--primary)
+  );
+  background-origin: border-box;
+  background-size: 200% 100%;
+  color: var(--on-accent);
+  transition: background-position var(--duration-slow) var(--ease);
+
+  &:hover {
+    background-position: 100% 0;
+  }
+}
+
+// Gradient sweep: a gradient layer wipes in from the left on hover.
+.ghost {
+  border-color: var(--border);
+  color: var(--text);
+  transition:
+    color var(--duration-medium) var(--ease),
+    border-color var(--duration-medium) var(--ease);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-medium) var(--ease);
+  }
+
+  &:hover {
+    border-color: transparent;
+    color: var(--on-accent);
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+}

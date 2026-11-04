@@ -1,0 +1,27 @@
+@use '../styles/mixins' as *;
+
+.footer {
+  border-top: 1px solid var(--border);
+}
+
+.inner {
+  @include flex(row, center, space-between, 0.75rem 2rem, wrap);
+  padding-block: 1.75rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.links {
+  @include flex(row, center, flex-start, 1.25rem, wrap);
+
+  a {
+    display: block;
+    padding-block: 0.25rem;
+    text-underline-offset: 0.2em;
+    transition: color var(--duration-fast) var(--ease);
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+}
